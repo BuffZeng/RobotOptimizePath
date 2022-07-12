@@ -1,12 +1,7 @@
 package algorithm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
-
-import algorithm.DFS.Node;
 
 public class ASTAR {
 
@@ -17,8 +12,6 @@ public class ASTAR {
 	private int inity;
 	private int finx;
 	private int finy;
-	// right, down, left, up
-	private int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
 
 	public ASTAR(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -50,9 +43,7 @@ public class ASTAR {
 		Node start = new Node(initx, inity);
 		// Put start node into open list.
 		open.add(start);
-		int cnt = 0;
 		while (! open.isEmpty()) {
-			cnt++;
 			Node curMinF = GetMinFNode(open);
 			// Remove curMinF from open list.
 			open.remove(curMinF);
