@@ -12,6 +12,7 @@ public class BFS {
 	private int inity;
 	private int finx;
 	private int finy;
+	// right, down, left, up
 	private int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
 
 	public BFS(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {

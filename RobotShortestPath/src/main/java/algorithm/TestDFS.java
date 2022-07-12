@@ -23,26 +23,14 @@ public class TestDFS {
 			}
 		}
 		
-		// Create a 2D array record the path.
-		char[][] record = new char[row][col];
-		for (char[] rec : record) {
-		    Arrays.fill(rec, '-');
-		}
-		
-		// Create a 2D array record visited nodes.
-		int[][] visit = new int[row][col];
-		for (int[] v: visit) {
-		    Arrays.fill(v, 0);
-		}
-		
 		DFS d = new DFS(room, row, col, initx, inity, finx, finy);
-		d.dfs(initx, inity, record, visit);
 		
+		char[][] path = d.getPath();
 		System.out.println();
 		for(int i = 0; i < row; i++) {
 			System.out.println();
 			for(int j = 0; j < col; j++) {
-				System.out.print(record[i][j]);
+				System.out.print(path[i][j]);
 			}
 		}
 				
