@@ -1,7 +1,15 @@
 package algorithm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
+
+import algorithm.DFS.Node;
+
 public class ASTAR {
-	
+
 	private int[][] room;
 	private int row;
 	private int col;
@@ -21,9 +29,118 @@ public class ASTAR {
 		this.finx = finx;
 		this.finy = finy;
 	}
-	
-	public void astar() {
-		
+
+	public class Node {
+		private int x;
+		private int y;
+		private int f = Integer.MAX_VALUE;
+		// Present node's father node.
+		private Node Father = null;
+
+		public Node(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 
+	public char[][] astar() {
+		Stack<Node> open = new Stack<>();
+		Stack<Node> close = new Stack<>();
+
+		Node start = new Node(initx, inity);
+		// Put start node into open list.
+		open.add(start);
+		int cnt = 0;
+		while (! open.isEmpty()) {
+			cnt++;
+			Node curMinF = GetMinFNode(open);
+			// Remove curMinF from open list.
+			open.remove(curMinF);
+			// Put curMinF into close list.
+			close.add(curMinF);
+
+			// If reach the destination.
+			if (curMinF.x == finx && curMinF.y == finy) {
+				break;
+			} else {
+				// Run through four directions.
+				// right, down, left, up
+				// {0,1},{1,0},{0,-1},{-1,0}
+				// Right
+				CheckChildNode(curMinF, curMinF.x, curMinF.y + 1, open, close);
+				// Down
+				CheckChildNode(curMinF, curMinF.x + 1, curMinF.y, open, close);
+				// Left
+				CheckChildNode(curMinF, curMinF.x, curMinF.y - 1, open, close);
+				// Up
+				CheckChildNode(curMinF, curMinF.x - 1, curMinF.y, open, close);
+			}
+		}
+		return getPath(close);
+	}
+
+	private Node GetMinFNode(Stack<Node> open) {
+		int minF = Integer.MAX_VALUE;
+		for (Node i : open) {
+			// Update min if found to be more than the current element
+			if (minF > i.f) {
+				minF = i.f;
+			}
+		}
+
+		for (Node n : open) {
+			if (n.f == minF) {
+				return n;
+			}    
+		}
+		return null;
+	}
+
+	private void CheckChildNode(Node curMinF, int x, int y, Stack<Node> open, Stack<Node> close) {
+		Node c = null;
+		if (x >= 0 && x < row && y >= 0 && y < col && room[x][y] != 0) {
+			c = new Node(x, y);
+			if (! inList(c, open) && ! inList(c, close)) {
+				c.f = getFValue(x, y);
+				c.Father = curMinF;
+				open.add(c);
+			}
+		}
+	}
+
+	private boolean inList(Node c, Stack<Node> l) {
+		for (Node n : l) {
+			if (n.x == c.x && n.y == c.y) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private int getFValue(int x, int y) {
+		// g(n): cost of from start to search point
+		// h(n): cost of from search point to destination
+		// Use Manhattan distance: d(i,j)=|x1−x2|+|y1−y2|
+		int g = Math.abs(initx - x) + Math.abs(inity - y);
+		int h = Math.abs(finx - x) + Math.abs(finy - y);
+		// f(n) = g(n) + h(n)
+		return g+h;
+	}
+
+	public char[][] getPath(Stack<Node> close) {
+		// Setup an empty 2D array as path.
+		char[][] path = new char[row][col];
+		for (char[] p : path) {
+			Arrays.fill(p, '-');
+		}
+		path[initx][inity] = '*';
+		
+		Node cur = close.peek();
+		while (cur.Father != null) {
+			path[cur.x][cur.y] = '*';
+			cur = cur.Father;
+		}
+		
+		return path;
+	}
 }
