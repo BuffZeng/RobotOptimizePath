@@ -39,39 +39,7 @@ public class DFS {
 		}
 	}
 
-	public void dfs(int x, int y, char[][] record, int[][] visit) {
-		// Reach the destination
-		if (x == finx && y == finy) {
-			flag = true;
-			return;
-		}
-
-		// If did not find the destination, use recursion keep searching
-		if (flag == false) {
-			// Run through four directions.
-			for (int i = 0; i < 4; i++) {
-				// Find next coordinate
-				int nextx = x + dir[i][0];
-				int nexty = y + dir[i][1];
-				// If next coordinate out of bound or has been visited.
-				if (nextx < 0 || nextx >= row || nexty < 0 || nexty >= col 
-						|| visit[nextx][nexty] == 1) {
-					// Keep searching...
-					continue;
-				}
-				if (room[nextx][nexty] == 1) {
-					visit[nextx][nexty] = 1;
-					dfs(nextx, nexty, record, visit);
-					record[nextx][nexty] = '*';
-					// Set visit as 0 after backtracking.
-					visit[nextx][nexty] = 0;
-
-				}
-			}
-		}
-	}
-
-	public Stack<Node> findPath() {
+	public Stack<Node> dfs() {
 		Stack<Node> s = new Stack<>();
 		int[][] visit = room; 
 		// Present x, y and direction.
@@ -137,7 +105,7 @@ public class DFS {
 	}
 
 	public char[][] getPath() {
-		Stack<Node> s = findPath();
+		Stack<Node> s = dfs();
 		
 		// Setup an empty 2D array as path.
 		char[][] path = new char[row][col];
