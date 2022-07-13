@@ -114,6 +114,7 @@ public class DFS {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
+		int cnt = 0;
 		
 		// Backtrack stack.
 		int i = 0;
@@ -127,7 +128,10 @@ public class DFS {
 		// Backtrack array.
 		for(int j = data.length - 1; j >= 0; j--) {
 			path[data[j].x][data[j].y] = '*';
+			cnt++;
 	     }
+		
+		System.out.print("\nDistance: " + cnt);
 
 		return path;
 	}

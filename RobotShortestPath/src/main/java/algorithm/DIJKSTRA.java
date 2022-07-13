@@ -123,6 +123,8 @@ public class DIJKSTRA {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
+		
+		int cnt = 1;
 
 		Node[][] prev = dijkstra();
 		Queue<Node> q = new ArrayDeque<Node>();
@@ -131,8 +133,11 @@ public class DIJKSTRA {
 		while(! q.isEmpty()) {
 			Node node = q.remove();
 			path[node.x][node.y] = '*';
+			cnt++;
 		}
 		path[finx][finy] = '*';
+		
+		System.out.print("\nDistance: " + cnt);
 
 		return path;
 	}

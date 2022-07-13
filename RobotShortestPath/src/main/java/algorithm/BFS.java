@@ -102,6 +102,8 @@ public class BFS {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
+		
+		int cnt = 0;
 
 		// Use Node to represent x and y as a pair.
 		Node start = new Node(initx, inity);
@@ -112,6 +114,7 @@ public class BFS {
 		while (true) {
 			// Set a '*' as past path.
 			path[cur[0]][cur[1]] = '*';
+			cnt++;
 			// If reach the start point.
 			if (cur[0] == start.x && cur[1] == start.y) {
 				break;
@@ -130,6 +133,9 @@ public class BFS {
 				}
 			}
 		}
+		
+		System.out.print("\nDistance: " + cnt);
+		
 		return path;
 	}
 }

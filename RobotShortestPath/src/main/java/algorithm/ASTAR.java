@@ -124,13 +124,19 @@ public class ASTAR {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
+		
+		int cnt = 1;
+		
 		path[initx][inity] = '*';
 		
 		Node cur = close.peek();
 		while (cur.Father != null) {
 			path[cur.x][cur.y] = '*';
+			cnt++;
 			cur = cur.Father;
 		}
+		
+		System.out.print("\nDistance: " + cnt);
 		
 		return path;
 	}
