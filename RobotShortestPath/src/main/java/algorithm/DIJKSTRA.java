@@ -24,7 +24,7 @@ public class DIJKSTRA {
 		this.finy = finy;
 	}
 
-	public class Node {
+	private class Node {
 		private int x;
 		private int y;
 		private int f;
@@ -36,7 +36,7 @@ public class DIJKSTRA {
 		}
 	}
 
-	public Node[][] dijkstra() {
+	private Node[][] dijkstra() {
 		// Set up father queue.
 		Queue<Node> father = new ArrayDeque<>();
 		// Set up child queue.

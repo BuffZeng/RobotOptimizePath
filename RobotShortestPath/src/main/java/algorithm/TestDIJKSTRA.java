@@ -21,8 +21,8 @@ public class TestDIJKSTRA {
 			}
 		}
 
-		DIJKSTRA d = new DIJKSTRA(room, row, col, initx, inity, finx, finy);
-		char[][] path = d.getPath();
+		DIJKSTRA dj = new DIJKSTRA(room, row, col, initx, inity, finx, finy);
+		char[][] path = dj.getPath();
 		
 		System.out.println();
 		for(int i = 0; i < row; i++) {

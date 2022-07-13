@@ -14,7 +14,6 @@ public class DFS {
 	private int finy;
 	// right, down, left, up
 	private int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
-	private boolean flag = false;
 
 	public DFS(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -26,7 +25,7 @@ public class DFS {
 		this.finy = finy;
 	}
 
-	public class Node {
+	private class Node {
 		private int x;
 		private int y;
 		// Record next direction.
@@ -39,9 +38,12 @@ public class DFS {
 		}
 	}
 
-	public Stack<Node> dfs() {
+	private Stack<Node> dfs() {
 		Stack<Node> s = new Stack<>();
-		int[][] visit = room; 
+		int[][] visit = new int[row][col];
+		for(int[] v : visit) {
+			Arrays.fill(v, 0);
+		}
 		// Present x, y and direction.
 		int x = initx, y = inity, direction = 0;
 		// Next x, y.
@@ -68,7 +70,7 @@ public class DFS {
 				nexty = y + dir[direction][1];
 
 				if (nextx < 0 || nextx >= row || nexty < 0 || nexty >= col 
-						|| visit[nextx][nexty] == -1) {
+						|| visit[nextx][nexty] == -1 || room[nextx][nexty] == 0) {
 					// Keep searching...
 					if (direction < 4) {
 						direction++;
@@ -123,7 +125,7 @@ public class DFS {
 		}
 		
 		// Backtrack array.
-		for(int j = s.size() - 1; j >= 0; j--) {
+		for(int j = data.length - 1; j >= 0; j--) {
 			path[data[j].x][data[j].y] = '*';
 	     }
 

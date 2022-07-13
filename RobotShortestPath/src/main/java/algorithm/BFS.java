@@ -25,7 +25,7 @@ public class BFS {
 		this.finy = finy;
 	}
 
-	public class Node {
+	private class Node {
 		private int x;
 		private int y;
 
@@ -59,9 +59,9 @@ public class BFS {
 
 		// If there still has unvisited node.
 		while (queue.size() != 0) {
-			
+
 			Node pre = queue.poll();
-			
+
 			// Run through four directions.
 			for (int i = 0; i < 4; i++) {
 				// Setup a current node after turn a direction.
@@ -71,19 +71,19 @@ public class BFS {
 				if (cur.x >= 0 && cur.x < row && cur.y >= 0 && cur.y < col
 						&& room[cur.x][cur.y] != 0 && dis[cur.x][cur.y] == -1) {
 					dis[cur.x][cur.y] = dis[pre.x][pre.y] + 1;
-					
+
 					// If find the destination.
 					if (cur.x == end.x && cur.y == end.y) {
 						// Flag turn to true and break the loop.
 						isFound = true;
 						break;
 					}
-					
+
 					// Push current node into queue.
 					queue.offer(cur);
 				}
 			}
-			
+
 			// Jump out of the loop if reach the destination.
 			if (isFound) {
 				break;
@@ -100,7 +100,7 @@ public class BFS {
 		// Setup an empty 2D array as path.
 		char[][] path = new char[row][col];
 		for (char[] p : path) {
-		    Arrays.fill(p, '-');
+			Arrays.fill(p, '-');
 		}
 
 		// Use Node to represent x and y as a pair.

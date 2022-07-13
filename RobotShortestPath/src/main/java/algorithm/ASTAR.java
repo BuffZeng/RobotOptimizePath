@@ -23,7 +23,7 @@ public class ASTAR {
 		this.finy = finy;
 	}
 
-	public class Node {
+	private class Node {
 		private int x;
 		private int y;
 		private int f = Integer.MAX_VALUE;
