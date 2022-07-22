@@ -110,7 +110,6 @@ public class DFS {
 				// Backtrack.
 				visit[nextx][nexty] = 0;
 				path.pop();
-				step--;
 			}
 		}
 	}
@@ -124,8 +123,6 @@ public class DFS {
 		
 		path[initx][inity] = '*';
 		
-		int dis = Mtemp.size();
-
 		while (!Mtemp.isEmpty()){
 			Node node = Mtemp.pop();
 			path[node.x][node.y] = '*';
@@ -141,7 +138,7 @@ public class DFS {
 
 		System.out.print("\nSpace: " + spacecnt);
 
-		System.out.print("\nDistance: " + dis);
+		System.out.print("\nDistance: " + min);
 
 		return path;
 	}

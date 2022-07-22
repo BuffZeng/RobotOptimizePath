@@ -77,6 +77,26 @@ public class Test {
 				System.out.print(bfspath[i][j]);
 			}
 		}
+		
+		
+		System.out.println("\n\n" + "DFS Path Result");
+		System.out.print("==========================================");
+
+		DFS d = new DFS(room, row, col, initx, inity, finx, finy);
+
+		startTime=System.nanoTime();
+
+		char[][] dfspath = d.initdfs();
+
+		endTime=System.nanoTime();
+		System.out.println("\nTime: "+(endTime-startTime)+"ns");
+
+		for(int i = 0; i < row; i++) {
+			System.out.println();
+			for(int j = 0; j < col; j++) {
+				System.out.print(dfspath[i][j]);
+			}
+		}
 
 
 		System.out.println("\n\n" + "A* Path Result");
@@ -114,26 +134,6 @@ public class Test {
 			System.out.println();
 			for(int j = 0; j < col; j++) {
 				System.out.print(dijkstrapath[i][j]);
-			}
-		}
-		
-		
-		System.out.println("\n\n" + "DFS Path Result");
-		System.out.print("==========================================");
-
-		DFS d = new DFS(room, row, col, initx, inity, finx, finy);
-
-		startTime=System.nanoTime();
-
-		char[][] dfspath = d.initdfs();
-
-		endTime=System.nanoTime();
-		System.out.println("\nTime: "+(endTime-startTime)+"ns");
-
-		for(int i = 0; i < row; i++) {
-			System.out.println();
-			for(int j = 0; j < col; j++) {
-				System.out.print(dfspath[i][j]);
 			}
 		}
 
