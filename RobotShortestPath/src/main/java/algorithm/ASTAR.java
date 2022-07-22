@@ -125,18 +125,20 @@ public class ASTAR {
 			Arrays.fill(p, '-');
 		}
 		
-		int cnt = 1;
+		int discnt = 0;
 		
 		path[initx][inity] = '*';
+		
+		System.out.print("\nSpace: " + close.size());
 		
 		Node cur = close.peek();
 		while (cur.Father != null) {
 			path[cur.x][cur.y] = '*';
-			cnt++;
+			discnt++;
 			cur = cur.Father;
 		}
 		
-		System.out.print("\nDistance: " + cnt);
+		System.out.print("\nDistance: " + discnt);
 		
 		return path;
 	}

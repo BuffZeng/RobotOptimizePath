@@ -36,7 +36,7 @@ public class BFS {
 	}
 
 
-	public int[][] bfs() {
+	private int[][] bfs() {
 
 		// Record path by a 2D array.
 		int[][] dis = new int[row][col];
@@ -91,19 +91,23 @@ public class BFS {
 		}
 
 		// Return the distance of the path.
-		// return distance[end.x][end.y] == Integer.MAX_VALUE ? -1 : distance[end.x][end.y];
+		// return dis[end.x][end.y] == Integer.MAX_VALUE ? -1 : dis[end.x][end.y];
 		// Return 2D array of distance.
 		return dis;
 	}
 
-	public char[][] getPath(int[][] dis) {
+	public char[][] getPath() {
+		
+		int[][] dis = bfs();
+		
 		// Setup an empty 2D array as path.
 		char[][] path = new char[row][col];
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
 		
-		int cnt = 0;
+		int discnt = -1;
+		int spacecnt = 0;
 
 		// Use Node to represent x and y as a pair.
 		Node start = new Node(initx, inity);
@@ -114,7 +118,7 @@ public class BFS {
 		while (true) {
 			// Set a '*' as past path.
 			path[cur[0]][cur[1]] = '*';
-			cnt++;
+			discnt++;
 			// If reach the start point.
 			if (cur[0] == start.x && cur[1] == start.y) {
 				break;
@@ -134,7 +138,18 @@ public class BFS {
 			}
 		}
 		
-		System.out.print("\nDistance: " + cnt);
+		for(int i = 0; i < row; i++) {
+			for(int j = 0; j < col; j++) {
+				if(dis[i][j] != -1) {
+					spacecnt++;
+				}
+			}
+		}
+		
+		System.out.print("\nSpace: " + spacecnt);
+		
+		System.out.print("\nDistance: " + discnt);
+		
 		
 		return path;
 	}

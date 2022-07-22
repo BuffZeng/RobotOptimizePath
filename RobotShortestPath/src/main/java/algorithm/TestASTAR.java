@@ -13,8 +13,8 @@ public class TestASTAR {
 		int[] obsx = {0, 2};
 		int[] obsy = {1, 0};
 
-		Room r = new Room(row, col, obsx, obsy);
-		int[][] room = r.createRoom(row, col, obsx, obsy);
+		Room r = new Room(row, col, obsx, obsy, initx, inity, finx, finy);
+		int[][] room = r.createRoom();
 		for(int i = 0; i < row; i++) {
 			System.out.println();
 			for(int j = 0; j < col; j++) {
