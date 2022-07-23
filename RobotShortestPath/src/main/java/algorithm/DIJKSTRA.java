@@ -83,7 +83,7 @@ public class DIJKSTRA {
 				}
 
 				// Left
-				if (y - 1 > 0 && room[x][y - 1] == 1 && visit[x][y - 1] == 0) {
+				if (y - 1 >= 0 && room[x][y - 1] == 1 && visit[x][y - 1] == 0) {
 					// Save current node into child queue.
 					child.add(new Node(x, y - 1, i));
 					prev[x][y - 1] = new Node(x, y, i);
@@ -91,7 +91,7 @@ public class DIJKSTRA {
 				}
 
 				// Up
-				if (x - 1 > 0 && room[x - 1][y] == 1 && visit[x - 1][y] == 0) {
+				if (x - 1 >= 0 && room[x - 1][y] == 1 && visit[x - 1][y] == 0) {
 					// Save current node into child queue.
 					child.add(new Node(x - 1, y, i));
 					prev[x - 1][y] = new Node(x, y, i);
@@ -103,17 +103,19 @@ public class DIJKSTRA {
 				father.add(child.remove());
 			}
 		}
-		
+
 		System.out.print("\nSpace: " + getSpace(visit));
-		
+
 		return prev;
 	}
-	
+
 	// Backtrack to getPath.
 	private void queryPath(int x,int y, Node[][] prev, Queue<Node> pathNode) {
 		if (x == initx && y == inity){
 			return;
-		} else {
+		} else if (prev[x][y] == null) {
+			System.out.println("\nNo way found!");
+		}else {
 			Node node = new Node(prev[x][y].x,prev[x][y].y,prev[x][y].f - 1);
 			pathNode.add(node);
 			queryPath(node.x,node.y,prev,pathNode);
@@ -126,26 +128,26 @@ public class DIJKSTRA {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
-		
+
 		int discnt = 0;
 
 		Node[][] prev = dijkstra();
-				
+
 		Queue<Node> q = new ArrayDeque<Node>();
 		queryPath(finx, finy, prev, q);
-		
+
 		while(! q.isEmpty()) {
 			Node node = q.remove();
 			path[node.x][node.y] = '*';
 			discnt++;
 		}
 		path[finx][finy] = '*';
-		
+
 		System.out.print("\nDistance: " + discnt);
 
 		return path;
 	}
-	
+
 	public int getSpace(int[][] visit) {
 		int spacecnt = 0;
 		for(int i = 0; i < row; i++) {
@@ -155,7 +157,9 @@ public class DIJKSTRA {
 				}
 			}
 		}
+		
 		return spacecnt;
 	}
+
 
 }

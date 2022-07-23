@@ -22,13 +22,14 @@ public class TestDIJKSTRA {
 		}
 
 		DIJKSTRA dj = new DIJKSTRA(room, row, col, initx, inity, finx, finy);
+				
 		char[][] path = dj.getPath();
 		
 		System.out.println();
 		for(int i = 0; i < row; i++) {
 			System.out.println();
 			for(int j = 0; j < col; j++) {
-				System.out.print(path[i][j]);
+				System.out.print(path[i][j] + " ");
 			}
 		}
 	}
