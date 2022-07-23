@@ -12,6 +12,10 @@ public class ASTAR {
 	private int inity;
 	private int finx;
 	private int finy;
+	
+	Stack<Node> close;
+	private int discnt;
+	private int spacecnt;
 
 	public ASTAR(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -21,6 +25,10 @@ public class ASTAR {
 		this.inity = inity;
 		this.finx = finx;
 		this.finy = finy;
+		
+		this.close = new Stack<>();
+		this.discnt = 0;
+		this.spacecnt = 0;
 	}
 
 	private class Node {
@@ -36,9 +44,11 @@ public class ASTAR {
 		}
 	}
 
-	public char[][] astar() {
+	public Node astar() {
 		Stack<Node> open = new Stack<>();
-		Stack<Node> close = new Stack<>();
+		close = new Stack<>();
+		
+		Node end = null;
 
 		Node start = new Node(initx, inity);
 		// Put start node into open list.
@@ -52,6 +62,7 @@ public class ASTAR {
 
 			// If reach the destination.
 			if (curMinF.x == finx && curMinF.y == finy) {
+				end = curMinF;
 				break;
 			} else {
 				// Run through four directions.
@@ -67,7 +78,7 @@ public class ASTAR {
 				CheckChildNode(curMinF, curMinF.x - 1, curMinF.y, open, close);
 			}
 		}
-		return getPath(close);
+		return end;
 	}
 
 	private Node GetMinFNode(Stack<Node> open) {
@@ -118,28 +129,41 @@ public class ASTAR {
 		return g+h;
 	}
 
-	public char[][] getPath(Stack<Node> close) {
+	public char[][] getPath() {
 		// Setup an empty 2D array as path.
 		char[][] path = new char[row][col];
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
 		
-		int discnt = 0;
+		Node end = astar();
+		
+		if (end == null) {
+			System.out.println("\nNo Way Founded.");
+			return path;
+		}
+		
 		
 		path[initx][inity] = '*';
 		
-		System.out.print("\nSpace: " + close.size());
+		this.spacecnt = close.size();
 		
-		Node cur = close.peek();
+		Node cur = close.peek();		
 		while (cur.Father != null) {
 			path[cur.x][cur.y] = '*';
 			discnt++;
 			cur = cur.Father;
 		}
-		
-		System.out.print("\nDistance: " + discnt);
-		
+				
 		return path;
 	}
+
+	public int getDiscnt() {
+		return discnt;
+	}
+
+	public int getSpacecnt() {
+		return spacecnt;
+	}
+
 }

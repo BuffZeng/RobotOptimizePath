@@ -10,8 +10,8 @@ public class TestASTAR {
 		int inity = 1;
 		int finx = 4;
 		int finy = 4;
-		int[] obsx = {0, 2};
-		int[] obsy = {1, 0};
+		int[] obsx = {0, 2, 4, 3};
+		int[] obsy = {1, 0, 3, 4};
 
 		Room r = new Room(row, col, obsx, obsy, initx, inity, finx, finy);
 		int[][] room = r.createRoom();
@@ -23,7 +23,7 @@ public class TestASTAR {
 		}
 
 		ASTAR astar = new ASTAR(room, row, col, initx, inity, finx, finy);
-		char[][] path = astar.astar();
+		char[][] path = astar.getPath();
 		
 		System.out.println();
 		for(int i = 0; i < row; i++) {

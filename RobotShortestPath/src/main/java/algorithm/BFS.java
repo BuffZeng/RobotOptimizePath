@@ -12,8 +12,11 @@ public class BFS {
 	private int inity;
 	private int finx;
 	private int finy;
+	
 	// right, down, left, up
-	private int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
+	private int[][] dir;
+	private int discnt;
+	private int spacecnt;
 
 	public BFS(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -23,6 +26,10 @@ public class BFS {
 		this.inity = inity;
 		this.finx = finx;
 		this.finy = finy;
+		
+		this.dir = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
+		this.discnt = 0;
+		this.spacecnt = -1;
 	}
 
 	private class Node {
@@ -93,21 +100,29 @@ public class BFS {
 		// Return the distance of the path.
 		// return dis[end.x][end.y] == Integer.MAX_VALUE ? -1 : dis[end.x][end.y];
 		// Return 2D array of distance.
+		if (dis[end.x][end.y] == Integer.MAX_VALUE) {
+			dis[end.x][end.y] = -1;
+		}
 		return dis;
 	}
 
 	public char[][] getPath() {
-		
-		int[][] dis = bfs();
-		
+
 		// Setup an empty 2D array as path.
 		char[][] path = new char[row][col];
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
-		
-		int discnt = -1;
-		int spacecnt = 0;
+
+
+		int[][] dis = bfs();
+		if (dis[finx][finy] == -1) {
+			System.out.println("\nNo Way Founded.");
+
+			return path;
+		}
+
+
 
 		// Use Node to represent x and y as a pair.
 		Node start = new Node(initx, inity);
@@ -137,7 +152,7 @@ public class BFS {
 				}
 			}
 		}
-		
+
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < col; j++) {
 				if(dis[i][j] != -1) {
@@ -145,12 +160,15 @@ public class BFS {
 				}
 			}
 		}
-		
-		System.out.print("\nSpace: " + spacecnt);
-		
-		System.out.print("\nDistance: " + discnt);
-		
-		
+
 		return path;
+	}
+	
+	public int getDiscnt() {
+		return discnt;
+	}
+
+	public int getSpacecnt() {
+		return spacecnt;
 	}
 }

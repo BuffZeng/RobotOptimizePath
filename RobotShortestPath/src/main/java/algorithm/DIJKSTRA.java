@@ -13,6 +13,9 @@ public class DIJKSTRA {
 	private int inity;
 	private int finx;
 	private int finy;
+	
+	private int discnt;
+	private int spacecnt;
 
 	public DIJKSTRA(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -22,6 +25,9 @@ public class DIJKSTRA {
 		this.inity = inity;
 		this.finx = finx;
 		this.finy = finy;
+		
+		this.discnt = 0;
+		this.spacecnt = 0;
 	}
 
 	private class Node {
@@ -54,6 +60,7 @@ public class DIJKSTRA {
 		Node start = new Node(initx, inity, 0);
 		// Set the start point as visited.
 		visit[initx][inity] = 1;
+		spacecnt++;
 		// Put start point into father queue.
 		father.add(start);
 
@@ -72,6 +79,7 @@ public class DIJKSTRA {
 					child.add(new Node(x, y + 1, i));
 					prev[x][y + 1] = new Node(x, y, i);
 					visit[x][y + 1] = 1;
+					spacecnt++;
 				}
 
 				// Down
@@ -80,6 +88,7 @@ public class DIJKSTRA {
 					child.add(new Node(x + 1, y, i));
 					prev[x + 1][y] = new Node(x, y, i);
 					visit[x + 1][y] = 1;
+					spacecnt++;
 				}
 
 				// Left
@@ -88,6 +97,7 @@ public class DIJKSTRA {
 					child.add(new Node(x, y - 1, i));
 					prev[x][y - 1] = new Node(x, y, i);
 					visit[x][y - 1] = 1;
+					spacecnt++;
 				}
 
 				// Up
@@ -96,6 +106,7 @@ public class DIJKSTRA {
 					child.add(new Node(x - 1, y, i));
 					prev[x - 1][y] = new Node(x, y, i);
 					visit[x - 1][y] = 1;
+					spacecnt++;
 				}
 			}
 			// Put value from child queue to father queue.
@@ -104,8 +115,6 @@ public class DIJKSTRA {
 			}
 		}
 
-		System.out.print("\nSpace: " + getSpace(visit));
-
 		return prev;
 	}
 
@@ -113,9 +122,7 @@ public class DIJKSTRA {
 	private void queryPath(int x,int y, Node[][] prev, Queue<Node> pathNode) {
 		if (x == initx && y == inity){
 			return;
-		} else if (prev[x][y] == null) {
-			System.out.println("\nNo way found!");
-		}else {
+		} else {
 			Node node = new Node(prev[x][y].x,prev[x][y].y,prev[x][y].f - 1);
 			pathNode.add(node);
 			queryPath(node.x,node.y,prev,pathNode);
@@ -129,9 +136,13 @@ public class DIJKSTRA {
 			Arrays.fill(p, '-');
 		}
 
-		int discnt = 0;
-
 		Node[][] prev = dijkstra();
+		
+		if (prev[finx][finy] == null) {
+			System.out.println("\nNo way found!");
+			
+			return path;
+		}
 
 		Queue<Node> q = new ArrayDeque<Node>();
 		queryPath(finx, finy, prev, q);
@@ -143,23 +154,15 @@ public class DIJKSTRA {
 		}
 		path[finx][finy] = '*';
 
-		System.out.print("\nDistance: " + discnt);
-
 		return path;
 	}
 
-	public int getSpace(int[][] visit) {
-		int spacecnt = 0;
-		for(int i = 0; i < row; i++) {
-			for(int j = 0; j < col; j++) {
-				if(visit[i][j] == 1) {
-					spacecnt++;
-				}
-			}
-		}
-		
-		return spacecnt;
+	public int getDiscnt() {
+		return discnt;
 	}
 
+	public int getSpacecnt() {
+		return spacecnt;
+	}
 
 }

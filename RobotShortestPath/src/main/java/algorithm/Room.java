@@ -43,50 +43,10 @@ public class Room {
 	public boolean checkPass(int[][] room) {
 		if(room[initx][inity] == 0) {
 			return false;
-		} else if (room[finx][finy] == 0) {
+		}
+		if (room[finx][finy] == 0) {
 			return false;
-		} else if (room[0][0] == 1 && room[0][1] == 0 && room[1][0] == 0) {
-			return false;
-		}else if (room[0][col - 1] == 1 && room[0][col - 2] == 0 && room[1][col - 1] == 0) {
-			return false;
-		}else if (room[row - 1][0] == 1 && room[row - 1][1] == 0 && room[row - 2][0] == 0) {
-			return false;
-		}else if (room[row - 1][col - 1] == 1 && room[row - 1][col - 2] == 0 && room[row - 2][col - 1] == 0) {
-			return false;
-		}
-		
-		for (int i = 1; i < row - 1; i++) {
-			for (int j = 1; j < col - 1; j++) {
-				if (room[i][j] == 1 && room[i - 1][j] == 0 && room[i + 1][j] == 0
-						&& room[i][j + 1] == 0 && room[i][j - 1] == 0) {
-					return false;
-				}
-			}
-		}
-		for (int j = 1; j < col - 1; j++) {
-			if(room[0][j] == 1 && room[0][j - 1] == 0 && room[0][j + 1] == 0
-					&& room[1][j] == 0) {
-				return false;
-			}
-		}
-		for (int j = 1; j < col - 1; j++) {
-			if(room[row - 1][j] == 1 && room[row - 1][j - 1] == 0 && room[row - 1][j + 1] == 0
-					&& room[row - 2][j] == 0) {
-				return false;
-			}
-		}
-		for (int i = 1; i < row - 1; i++) {
-			if (room[i][0] == 1 && room[i - 1][0] == 0 && room[i + 1][0] == 0
-					&& room[i][1] == 0) {
-				return false;
-			}
-		}
-		for (int i = 1; i < row - 1; i++) {
-			if (room[i][col - 1] == 1 && room[i - 1][col - 1] == 0 && room[i + 1][col - 1] == 0
-					&& room[i][col - 2] == 0) {
-				return false;
-			}
-		}
+		} 
 		
 		return true;
 	}

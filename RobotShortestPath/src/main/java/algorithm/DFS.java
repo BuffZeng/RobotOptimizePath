@@ -13,15 +13,14 @@ public class DFS {
 	private int inity;
 	private int finx;
 	private int finy;
+	
 	// right, down, left, up
-	private int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
-	private int min = Integer.MAX_VALUE;
-
+	private int[][] dir;
 	private Stack<Node> temp;
 	private Stack<Node> Mtemp;
 	private Stack<Node> path;
-
-	private int spacecnt = 0;
+	private int discnt;
+	private int spacecnt;
 
 	public DFS(int[][] room, int row, int col, int initx, int inity, int finx, int finy) {
 		this.room = room;
@@ -31,6 +30,13 @@ public class DFS {
 		this.inity = inity;
 		this.finx = finx;
 		this.finy = finy;
+		
+		this.dir = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
+		this.temp = new Stack<>();
+		this.Mtemp = new Stack<>();
+		this.path = new Stack<>();
+		this.discnt = Integer.MAX_VALUE;
+		this.spacecnt = 0;
 	}
 
 	private class Node {
@@ -56,10 +62,6 @@ public class DFS {
 		}
 		space[initx][inity] = 1;
 
-		temp = new Stack<>();
-		Mtemp = new Stack<>();
-		path = new Stack<>();
-
 		dfs(initx,inity,0,visit,space);
 		return getPath(space);
 	}
@@ -70,7 +72,7 @@ public class DFS {
 			// If reach the destination.
 			if (x == finx && y == finy) {
 				// If step < min, this is the optimal solution for now.
-				if (step < min) {
+				if (step < discnt) {
 					while(!temp.empty()) {
 						temp.pop();
 					}
@@ -88,7 +90,7 @@ public class DFS {
 						path.push(p1);
 						temp.pop();
 					}
-					min = step;
+					discnt = step;
 				} 
 				step--;
 				return;
@@ -120,6 +122,12 @@ public class DFS {
 		for (char[] p : path) {
 			Arrays.fill(p, '-');
 		}
+				
+		if (Mtemp.isEmpty()) {
+			System.out.println("\nNo Way Founded.");
+			
+			return path;
+		}
 		
 		path[initx][inity] = '*';
 		
@@ -136,10 +144,15 @@ public class DFS {
 			}
 		}
 
-		System.out.print("\nSpace: " + spacecnt);
-
-		System.out.print("\nDistance: " + min);
-
 		return path;
 	}
+
+	public int getDiscnt() {
+		return discnt;
+	}
+	
+	public int getSpacecnt() {
+		return spacecnt;
+	}
+	
 }
