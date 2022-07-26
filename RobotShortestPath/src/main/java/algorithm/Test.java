@@ -14,47 +14,49 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Test {
 
 	public static ArrayList<Long> bfstime = new ArrayList<>();
-	public static ArrayList<Long> dfstime = new ArrayList<>();
+//	public static ArrayList<Long> dfstime = new ArrayList<>();
 	public static ArrayList<Long> astartime = new ArrayList<>();
 	public static ArrayList<Long> djtime = new ArrayList<>();
 
 	public static ArrayList<Integer> bfsdis = new ArrayList<>();
-	public static ArrayList<Integer> dfsdis = new ArrayList<>();
+//	public static ArrayList<Integer> dfsdis = new ArrayList<>();
 	public static ArrayList<Integer> astardis = new ArrayList<>();
 	public static ArrayList<Integer> djdis = new ArrayList<>();
 
 	public static ArrayList<Integer> bfsspace = new ArrayList<>();
-	public static ArrayList<Integer> dfsspace = new ArrayList<>();
+//	public static ArrayList<Integer> dfsspace = new ArrayList<>();
 	public static ArrayList<Integer> astarspace = new ArrayList<>();
 	public static ArrayList<Integer> djspace = new ArrayList<>();
 	
 	public static ArrayList<Integer> obsNum = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
-		int row = 5;
-		int col = 5;
+		// 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 150, 200
+		// 250, 300, 350, 400, 450. 500
+		int row = 450;
+		int col = 450;
 
-		int count = 20;
+		int count = 15;
 		while (count > 0) {
 			count = roomCreate(row, col, count);
-			System.out.println("\n" + (20 - count) + "--------------------------------------");
+			System.out.println("\n" + (15 - count) + "--------------------------------------");
 		}
 
 		System.out.println("~~~~~~~~~ Space ~~~~~~~~~");
 		System.out.println(bfsspace.toString());
-		System.out.println(dfsspace.toString());
+//		System.out.println(dfsspace.toString());
 		System.out.println(astarspace.toString());
 		System.out.println(djspace.toString());
 
 		System.out.println("~~~~~~~~~ Distance ~~~~~~~~~");
 		System.out.println(bfsdis.toString());
-		System.out.println(dfsdis.toString());
+//		System.out.println(dfsdis.toString());
 		System.out.println(astardis.toString());
 		System.out.println(djdis.toString());
 
 		System.out.println("~~~~~~~~~ Time ~~~~~~~~~");
 		System.out.println(bfstime.toString());
-		System.out.println(dfstime.toString());
+//		System.out.println(dfstime.toString());
 		System.out.println(astartime.toString());
 		System.out.println(djtime.toString());
 		
@@ -73,37 +75,37 @@ public class Test {
 		Cell cell;
 		int rowid = 0;
 		int i = 0;
-		while (rowid < dfsdis.size()) {
+		while (rowid < bfsdis.size()) {
 			xssrow = spreadsheet.createRow(rowid++);
 			cell = xssrow.createCell(0);
 			cell.setCellValue(obsNum.get(i));
 			
 			cell = xssrow.createCell(1);
-			cell.setCellValue(dfsspace.get(i));
+			cell.setCellValue(bfsspace.get(i));
 			cell = xssrow.createCell(2);
 			cell.setCellValue(bfsdis.get(i));
 			cell = xssrow.createCell(3);
 			cell.setCellValue(bfstime.get(i));
 
-			cell = xssrow.createCell(4);
-			cell.setCellValue(dfsspace.get(i));
-			cell = xssrow.createCell(5);
-			cell.setCellValue(dfsdis.get(i));
-			cell = xssrow.createCell(6);
-			cell.setCellValue(dfstime.get(i));
+//			cell = xssrow.createCell(4);
+//			cell.setCellValue(dfsspace.get(i));
+//			cell = xssrow.createCell(5);
+//			cell.setCellValue(dfsdis.get(i));
+//			cell = xssrow.createCell(6);
+//			cell.setCellValue(dfstime.get(i));
 
-			cell = xssrow.createCell(7);
+			cell = xssrow.createCell(4);
 			cell.setCellValue(astarspace.get(i));
-			cell = xssrow.createCell(8);
+			cell = xssrow.createCell(5);
 			cell.setCellValue(astardis.get(i));
-			cell = xssrow.createCell(9);
+			cell = xssrow.createCell(6);
 			cell.setCellValue(astartime.get(i));
 
-			cell = xssrow.createCell(10);
+			cell = xssrow.createCell(7);
 			cell.setCellValue(djspace.get(i));
-			cell = xssrow.createCell(11);
+			cell = xssrow.createCell(8);
 			cell.setCellValue(djdis.get(i));
-			cell = xssrow.createCell(12);
+			cell = xssrow.createCell(9);
 			cell.setCellValue(djtime.get(i));
 
 			i++;
@@ -154,6 +156,10 @@ public class Test {
 			
 			System.out.println("Start Point: (" + initx + ", " + inity + ")");
 			System.out.println("End Point: (" + finx + ", " + finy + ")");
+			System.out.println("Obstacles: ");
+			for(int i = 0; i < obs.size(); i++) {
+				System.out.println("(" + obsx[i] + ", " + obsy[i] + ")");
+			}
 
 			System.out.println("Room Layout");
 			System.out.print("==========================================");
@@ -190,28 +196,28 @@ public class Test {
 			bfsspace.add(b.getSpacecnt());
 
 
-			System.out.println("\n\n" + "DFS Path Result");
-			System.out.print("==========================================");
-
-			DFS d = new DFS(room, row, col, initx, inity, finx, finy);
-
-			startTime=System.nanoTime();
-
-			char[][] dfspath = d.initdfs();
-
-			endTime=System.nanoTime();
-			System.out.println("\nTime: "+(endTime-startTime)+"ns");
-
-			for(int i = 0; i < row; i++) {
-				System.out.println();
-				for(int j = 0; j < col; j++) {
-					System.out.print(dfspath[i][j]);
-				}
-			}
-
-			dfstime.add(endTime-startTime);
-			dfsdis.add(d.getDiscnt());
-			dfsspace.add(d.getSpacecnt());
+//			System.out.println("\n\n" + "DFS Path Result");
+//			System.out.print("==========================================");
+//
+//			DFS d = new DFS(room, row, col, initx, inity, finx, finy);
+//
+//			startTime=System.nanoTime();
+//
+//			char[][] dfspath = d.initdfs();
+//
+//			endTime=System.nanoTime();
+//			System.out.println("\nTime: "+(endTime-startTime)+"ns");
+//
+//			for(int i = 0; i < row; i++) {
+//				System.out.println();
+//				for(int j = 0; j < col; j++) {
+//					System.out.print(dfspath[i][j]);
+//				}
+//			}
+//
+//			dfstime.add(endTime-startTime);
+//			dfsdis.add(d.getDiscnt());
+//			dfsspace.add(d.getSpacecnt());
 
 
 			System.out.println("\n\n" + "A* Path Result");

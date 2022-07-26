@@ -28,7 +28,7 @@ public class BFS {
 		this.finy = finy;
 		
 		this.dir = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
-		this.discnt = 0;
+		this.discnt = -1;
 		this.spacecnt = -1;
 	}
 
