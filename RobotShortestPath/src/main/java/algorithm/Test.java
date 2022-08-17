@@ -3,13 +3,13 @@ package algorithm;
 import java.util.ArrayList;
 import java.util.Random;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+//import java.io.File;
+//import java.io.FileOutputStream;
+//
+//import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.xssf.usermodel.XSSFRow;
+//import org.apache.poi.xssf.usermodel.XSSFSheet;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Test {
 
@@ -63,61 +63,61 @@ public class Test {
 		System.out.println("~~~~~~~~~ Time ~~~~~~~~~");
 		System.out.println(obsNum.toString());
 
-		//Create blank workbook
-		XSSFWorkbook workbook = new XSSFWorkbook();
-
-		//Create a blank sheet
-		XSSFSheet spreadsheet = workbook.createSheet( "Algorithm Record");
-
-		//Create row object
-		XSSFRow xssrow;
-
-		Cell cell;
-		int rowid = 0;
-		int i = 0;
-		while (rowid < bfsdis.size()) {
-			xssrow = spreadsheet.createRow(rowid++);
-			cell = xssrow.createCell(0);
-			cell.setCellValue(obsNum.get(i));
-			
-			cell = xssrow.createCell(1);
-			cell.setCellValue(bfsspace.get(i));
-			cell = xssrow.createCell(2);
-			cell.setCellValue(bfsdis.get(i));
-			cell = xssrow.createCell(3);
-			cell.setCellValue(bfstime.get(i));
-
+//		//Create blank workbook
+//		XSSFWorkbook workbook = new XSSFWorkbook();
+//
+//		//Create a blank sheet
+//		XSSFSheet spreadsheet = workbook.createSheet( "Algorithm Record");
+//
+//		//Create row object
+//		XSSFRow xssrow;
+//
+//		Cell cell;
+//		int rowid = 0;
+//		int i = 0;
+//		while (rowid < bfsdis.size()) {
+//			xssrow = spreadsheet.createRow(rowid++);
+//			cell = xssrow.createCell(0);
+//			cell.setCellValue(obsNum.get(i));
+//			
+//			cell = xssrow.createCell(1);
+//			cell.setCellValue(bfsspace.get(i));
+//			cell = xssrow.createCell(2);
+//			cell.setCellValue(bfsdis.get(i));
+//			cell = xssrow.createCell(3);
+//			cell.setCellValue(bfstime.get(i));
+//
 //			cell = xssrow.createCell(4);
 //			cell.setCellValue(dfsspace.get(i));
 //			cell = xssrow.createCell(5);
 //			cell.setCellValue(dfsdis.get(i));
 //			cell = xssrow.createCell(6);
 //			cell.setCellValue(dfstime.get(i));
-
-			cell = xssrow.createCell(4);
-			cell.setCellValue(astarspace.get(i));
-			cell = xssrow.createCell(5);
-			cell.setCellValue(astardis.get(i));
-			cell = xssrow.createCell(6);
-			cell.setCellValue(astartime.get(i));
-
-			cell = xssrow.createCell(7);
-			cell.setCellValue(djspace.get(i));
-			cell = xssrow.createCell(8);
-			cell.setCellValue(djdis.get(i));
-			cell = xssrow.createCell(9);
-			cell.setCellValue(djtime.get(i));
-
-			i++;
-		}
-
-		//Write the workbook in file system
-		FileOutputStream out = new FileOutputStream(
-				new File("/Users/zengyi/Desktop/毕设/Writesheet.xlsx"));
-
-		workbook.write(out);
-		out.close();
-		System.out.println("Writesheet.xlsx written successfully");
+//
+//			cell = xssrow.createCell(4);
+//			cell.setCellValue(astarspace.get(i));
+//			cell = xssrow.createCell(5);
+//			cell.setCellValue(astardis.get(i));
+//			cell = xssrow.createCell(6);
+//			cell.setCellValue(astartime.get(i));
+//
+//			cell = xssrow.createCell(7);
+//			cell.setCellValue(djspace.get(i));
+//			cell = xssrow.createCell(8);
+//			cell.setCellValue(djdis.get(i));
+//			cell = xssrow.createCell(9);
+//			cell.setCellValue(djtime.get(i));
+//
+//			i++;
+//		}
+//
+//		//Write the workbook in file system
+//		FileOutputStream out = new FileOutputStream(
+//				new File("/Users/zengyi/Desktop/毕设/Writesheet.xlsx"));
+//
+//		workbook.write(out);
+//		out.close();
+//		System.out.println("Writesheet.xlsx written successfully");
 	}
 
 	public static int roomCreate(int row, int col, int count) {
