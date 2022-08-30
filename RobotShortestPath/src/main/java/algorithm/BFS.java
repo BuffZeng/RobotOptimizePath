@@ -117,13 +117,13 @@ public class BFS {
 
 		int[][] dis = bfs();
 		
-		System.out.println();
-		for(int i = 0; i < row; i++) {
-			System.out.println();
-			for(int j = 0; j < col; j++) {
-				System.out.print(dis[i][j]);
-			}
-		}
+//		System.out.println();
+//		for(int i = 0; i < row; i++) {
+//			System.out.println();
+//			for(int j = 0; j < col; j++) {
+//				System.out.print(dis[i][j]);
+//			}
+//		}
 		
 		if (dis[finx][finy] == -1) {
 			System.out.println("\nNo Way Founded.");

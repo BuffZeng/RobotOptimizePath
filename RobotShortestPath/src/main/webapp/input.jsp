@@ -8,68 +8,215 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Input</title>
 </head>
+<style type="text/css">
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: white;
+}
+
+.topnav a {
+	float: right;
+	display: block;
+	color: grey;
+	text-align: center;
+	padding: 50px 50px;
+	text-decoration: none;
+	font-size: 25px;
+}
+
+.topnav a:hover {
+	color: black;
+}
+
+.topnav a.active {
+	/* background-color: #2196F3; */
+	color: black;
+}
+
+.topnav img {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	margin-top: 15px;
+	margin-left: 30px;
+}
+
+.container {
+	width: 75%;
+	height: auto;
+	background-color: white;
+	margin: 5px;
+	line-height: 25px;
+	margin-right: auto;
+	margin-left: auto;
+	color: black;
+	margin-right: auto;
+	font-size: 20px;
+}
+
+.container_text {
+	width: 75%;
+	height: auto;
+	background-color: #D3D3D3;
+	margin: 5px;
+	line-height: 25px;
+	margin-right: auto;
+	margin-left: auto;
+	color: black;
+	margin-right: auto;
+	font-size: 20px;
+}
+
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 5px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: auto;
+	transition-duration: 0.3s;
+	cursor: pointer;
+	border-radius: 12px;
+}
+
+.button1 {
+	background-color: white;
+	color: black;
+	border: 2px solid #555555;
+}
+
+.button1:hover {
+	background-color: #555555;
+	color: white;
+}
+
+@media screen and (max-width: 600px) {
+	.topnav a, .topnav img, .container {
+		float: none;
+		display: block;
+		text-align: left;
+		width: 100%;
+		margin: 0;
+		padding: 14px;
+	}
+}
+</style>
+
+
 <body>
 
-	<form action="input" method="get" name="input_form">
-		Room Row:
-		<input type="text" name="row" id="row_id">
-		<br> Room Col:
-		<input type="text" name="col" id="col_id">
-		<br> Starter Point:
-		<input type="text" name="initx" id="initx_id">
-		,
-		<input type="text" name="inity" id="inity_id">
-		<br> End Point:
-		<input type="text" name="finx" id="finx_id">
-		,
-		<input type="text" name="finy" id="finy_id">
-		<br> Algorithm Choosing: <select name="algo">
-			<option value="Breadth First Searching">Breadth First
-				Searching</option>
-			<option value="Dijkstra">Dijkstra</option>
-			<option value="A Star">A Star</option>
-		</select><br> <br>
+	<div class="topnav">
+		<!-- <a href="#contact">Contact</a> -->
+		<img style="float: left" src="robot.png"> <a class="active"
+			href="input.jsp">Start</a> <a href="about.jsp">About</a> <a
+			href="index.jsp">Home</a>
+	</div>
 
-		<input type="submit">
-	</form>
 
-	<c:if test="${messages['Fail'] != null}">
-		<div class="alert alert-success" role="alert">
-			<c:out value="${messages['Fail']}" />
-		</div>
-	</c:if>
+	<div class="container_text">
+		<p>
+			Please enter the number you want. Click the <b>SUBMIT</b> button when
+			you have finished entering.<br>
+		</p>
+		<b>Note: </b>
+		<ul>
+			<li>All inputs must be integer.</li>
+			<li>row and column range from 2 to 100.</li>
+			<li>x ranges from 0 to row-1.</li>
+			<li>y ranges from 0 to column-1.</li>
+			<li>The start and end points cannot be thesame point.</li>
+		</ul>
+	</div>
 
-	<c:if test="${messages['Success'] != null}">
-		<div class="alert alert-success" role="alert">
-			Room Layout:
-			<c:out value="${row}" />
-			*
-			<c:out value="${col}" />
-			<br> Starter Point:
-			<c:out value="${initx}" />
-			,
-			<c:out value="${inity}" />
-			<br> End Point:
-			<c:out value="${finx}" />
-			,
-			<c:out value="${finy}" />
-			<br> You are choosing
-			<c:out value="${algo}" />
-			algorithm. <br> Note: Start Point set as yellow, End Point set
-			as blue, visited set as green, final path set as red, obstacles set
-			as black. <br>
-		</div>
-	</c:if>
+	<div class="container">
+		<form action="input" method="get" name="input_form">
+			Room(Row * Col): <input type="number" name="row" id="row_id" size="5">
+			, <input type="number" name="col" id="col_id" size="5"> <br>
+			Start Point(x, y): <input type="number" name="initx" id="initx_id"
+				size="5"> , <input type="number" name="inity" id="inity_id"
+				size="5"> <br> End Point(x,y): <input type="number"
+				name="finx" id="finx_id" size="5"> , <input type="number"
+				name="finy" id="finy_id" size="5"> <br> Algorithm
+			Choosing: <select name="algo">
+				<option value="bfs">Breadth First Searching</option>
+				<option value="dijkstra">Dijkstra</option>
+				<option value="astar">A Star</option>
+			</select> <br> <input type="submit" value="SUBMIT" class="button button1"><br>
+		</form>
+	</div>
+	<div class="container">
+		<c:if test="${messages['Fail'] != null}">
+			<div>
+				<c:out value="${messages['Fail']}" />
+			</div>
+		</c:if>
+	</div>
+	<div class="container">
+		<c:if test="${messages['Success'] != null}">
+			<div>
+				<br>Room (Row * Col): <b><c:out value="${row}" /> * <c:out
+						value="${col}" /></b> <br> Start Point (x, y): <b><c:out
+						value="${initx}" /> , <c:out value="${inity}" /></b> <br> End
+				Point (x,y): <b><c:out value="${finx}" /> , <c:out
+						value="${finy}" /></b> <br> You are choosing to use
+				<c:if test="${algo == 'bfs'}">
+					<b>Breadth First Searching</b>
+				</c:if>
+				<c:if test="${algo == 'dijkstra'}">
+					<b>Dijkstra</b>
+				</c:if>
+				<c:if test="${algo == 'astar'}">
+					<b>A Star</b>
+				</c:if>
+				algorithm. <br>
+			</div>
+		</c:if>
+	</div>
+	<div class="container_text">
+		<p>
+			Please set up obstacles. Click on a white square to place an
+			obstacle, when the square turns black it means the square is
+			impassable. Click on the black square to cancel the obstacle setup,
+			when the square turns white it means the square is passable. Click on
+			the <b>GENERATE</b> button when you have finished setting up the
+			obstacles.<br>
+		</p>
+		<b>Note: </b>
+		<ul>
+			<li>The start and end point must not be set up as obstacles.</li>
+			<li>The black squares are obstacles.</li>
+			<li>The pink square is the start point.</li>
+			<li>The blue square is the end point.</li>
+		</ul>
+	</div>
 
-	<div id="canvas">
+	<div id="canvas" class="container">
 		<!-- row -> height, col -> width -->
-		<canvas id="cs" width="${col * 20}" height="${row * 20}"
-			style="border: 2px solid green"></canvas>
+		<canvas id="cs" width="${col * 20}" height="${row * 20}" style=""></canvas>
 	</div>
 	<!-- <input type="submit" id="generate">Generate -->
-	<button id="generate">Generate</button>
+
+	<div class="container">
+		<form action="input" method="post" name="input_form">
+
+			<input type="hidden" name="room" id="get_room_string" value="abc">
+			<button type="submit" id="generate" class="button button1">GENERATE</button>
+		</form>
+	</div>
 
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -100,8 +247,8 @@
 				drawRect(h * j, w * i, w, h);
 			}
 		}
-		drawColor(initx * w, inity * h, w, h, "yellow");
-		drawColor(finx * w, finy * h, w, h, "blue");
+		drawColor(initx * w, inity * h, w, h, "#FF99FF");
+		drawColor(finx * w, finy * h, w, h, "#66CCFF");
 
 		/*
 		Fill color at specific position (x, y).
@@ -143,164 +290,12 @@
 			ctx.stroke();
 		}
 		
-		function bfsDis() {
-			// Set directions array.
-			let dir = [[0,1],[1,0],[0,-1],[-1,0]];
-			
-			// Record path by a 2D array.
-			let visit = new Array();
-			// All path set as unvisit
-			for (let i = 0; i < row; i++) {
-				visit[i] = new Array();
-				for (let j = 0; j < col; j++) {
-					visit[i][j] = -1;
-				}
-			}
-			
-			// Set x and y as a pair
-			let start = {x: initx, y: inity};
-			
-			// Initiate LinkedList.
-			let queue = new Array();
-			queue.push(start);
-			// Setup the start point.
-			visit[start.x][start.y] = 0;
-			
-			let isFound = false;
-			
-			// If there still has unvisited node.
-			while(queue.length != 0) {
-				let pre = queue.pop();
-				
-				
-				// Run through four directions.
-				for (let i = 0; i < 4; i++) {
-					// Setup a current node after turn a direction.
-					let cur = {x: Number(pre.x) + Number(dir[i][0]), y: Number(pre.y) + Number(dir[i][1])};
-					// If coordinate are in bound, path is available and node is unvisited.
-					if (cur.x >= 0 && cur.x < row && cur.y >= 0 && cur.y < col
-							&& room[cur.x][cur.y] != 0 && visit[cur.x][cur.y] == -1) {
-						visit[cur.x][cur.y] =  Number(visit[pre.x][pre.y]) + 1;
-
-						// If find the destination.
-						if (cur.x == finx && cur.y == finy) {
-							// Flag turn to true and break the loop.
-							isFound = true;
-							break;
-						}
-
-						// Push current node into queue.
-						queue.push(cur);
-					}
-				}
-				// Jump out of the loop if reach the destination.
-				if (isFound) {
-					break;
-				}
-			}
-			return visit;
-		}
-		
-		function bfs() {
-			// Set directions array.
-			let dir = [[0,1],[1,0],[0,-1],[-1,0]];
-			let visit = bfsDis();
-			
-			let path = new Array();
-			// All path set as unvisit
-			for (let i = 0; i < row; i++) {
-				path[i] = new Array();
-				for (let j = 0; j < col; j++) {
-					path[i][j] = -1;
-				}
-			}
-			
-			if (visit[finx][finy] == -1) {
-				console.log("No way found!");
-				window.alert("No way found!");
-				return path;
-			}
-			
-			let cur = {x: Number(finx), y: Number(finy)};
-			
-			while(true) {
-				path[cur.x][cur.y] = 1;
-				
-				if (cur.x == initx && cur.y == inity) {
-					break;
-				}
-				// Run through four directions.
-				for (let i = 0; i < 4; i++) {
-					if (Number(cur.x) + Number(dir[i][0]) >= 0 
-							&& Number(cur.x) + Number(dir[i][0]) < row
-							&& Number(cur.y) + Number(dir[i][1]) >= 0 
-							&& Number(cur.y) + Number(dir[i][1]) < col) {
-						// Previous node should be distance - 1.
-						if (visit[Number(cur.x) + Number(dir[i][0])][Number(cur.y) + Number(dir[i][1])] 
-								== Number(visit[cur.x][cur.y]) - 1) {
-							cur = {x: Number(cur.x) + Number(dir[i][0]), y: Number(cur.y) + Number(dir[i][1])};
-							break;
-						}
-					}
-				}
-			}
-			return path;
-		}
-		
-		function drawPath() {
-			let visit;
-			let path;
-			if (algo == "Breadth First Searching") {
-				visit = bfsDis();
-				path = bfs();
-				console.log("BFS visit in 2D Array：\n");
-				console.log(JSON.stringify(visit));
-				console.log("BFS Path in 2D Array：\n");
-				console.log(JSON.stringify(path));
-			}
-			
-			for (let i = 0; i < row; i++) {
-				for (let j = 0; j < col; j++) {
-					if (visit[i][j] > 0) {
-						drawColor(i * w, j * h, w, h, "green");
-					}
-					if (path[i][j] > 0) {
-						drawColor(i * w, j * h, w, h, "red");
-					}
-				}
-			}
-			drawColor(initx * w, inity * h, w, h, "yellow");
-			drawColor(finx * w, finy * h, w, h, "blue");
-		}
-		
 		generate.onclick = e => {
 			console.log("Room Layout in 2D Array：\n");
 			console.log(JSON.stringify(room));
+			document.getElementById("get_room_string").value = JSON.stringify(room);
 			
-			drawPath();
-						
-			$.ajax({
-		        type: 'POST',
-		        url: "/ShortPath/input",
-		        dataType: 'json',
-		        contentType: 'application/json',
-		        traditional: true,
-		        data: {room : "hello"},
-		        success: function (data) {
-		            // location.reload();
-		            console.log(data);
-		            alert("Success!");
-		        },
-		        error:function (data) {
-		            alert("Fail!");
-		        }
-		    });
 		}
 	</script>
-	
-
-	
-
-
 </body>
 </html>
